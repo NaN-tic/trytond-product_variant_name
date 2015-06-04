@@ -39,16 +39,6 @@ class Product:
             [('variant_name', ) + tuple(clause[1:])]
             ]
 
-    def get_rec_name(self, name):
-        if self.code and self.variant_name:
-            return '[' + self.code + '] ' + self.variant_name
-        elif self.variant_name:
-            return self.variant_name
-        elif self.code:
-            return '[' + self.code + '] ' + self.template.name
-        else:
-            return self.template.name
-
     def get_name(self, name):
         if self.variant_name:
             return self.variant_name
