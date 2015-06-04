@@ -9,17 +9,17 @@ __all__ = ['Product']
 __metaclass__ = PoolMeta
 STATES = {
     'readonly': ~Eval('active', True),
-    'invisible': Eval('_parent_template', {}).get('unique_variant', False),
-    'required': ~(Eval('_parent_template', {}).get('unique_variant', False)),
+    'invisible': ~(Eval('_parent_template', {}).get('unique_variant', False)),
+    'required': Eval('_parent_template', {}).get('unique_variant', False),
     }
 
 
 class Product:
     __name__ = 'product.product'
-    name = fields.Function(fields.Char('Name'),
+    name = fields.Function(
+            fields.Char('Variant Name', states=STATES, depends=['active']),
         'get_name', setter='set_name', searcher='search_name', )
-    variant_name = fields.Char("Variant Name", select=True,
-        states=STATES, depends=['active'])
+    variant_name = fields.Char("Name", select=True)
 
     @classmethod
     def search(cls, domain, offset=0, limit=None, order=None, count=False,
@@ -38,6 +38,16 @@ class Product:
             res,
             [('variant_name', ) + tuple(clause[1:])]
             ]
+
+    def get_rec_name(self, name):
+        if self.code and self.variant_name:
+            return '[' + self.code + '] ' + self.variant_name
+        elif self.variant_name:
+            return self.variant_name
+        elif self.code:
+            return '[' + self.code + '] ' + self.template.name
+        else:
+            return self.template.name
 
     def get_name(self, name):
         if self.variant_name:
