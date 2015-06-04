@@ -9,8 +9,10 @@ __all__ = ['Product']
 __metaclass__ = PoolMeta
 STATES = {
     'readonly': ~Eval('active', True),
-    'invisible': Eval('_parent_template', {}).get('unique_variant', False),
-    'required': ~(Eval('_parent_template', {}).get('unique_variant', False)),
+    'invisible': (Eval('variant_unique_name', False) | Eval(
+        '_parent_template', {}).get('unique_variant', False)),
+    'required': ~(Eval('variant_unique_name', False) | Eval(
+        '_parent_template', {}).get('unique_variant', False)),
     }
 
 
@@ -20,6 +22,8 @@ class Product:
             fields.Char('Name', states=STATES, depends=['active']),
         'get_name', setter='set_name', searcher='search_name', )
     variant_name = fields.Char("Variant Name", select=True)
+    variant_unique_name = fields.Function(fields.Boolean('Variant Unique Name'),
+        'on_change_with_variant_unique_name')
 
     @classmethod
     def search(cls, domain, offset=0, limit=None, order=None, count=False,
@@ -51,3 +55,9 @@ class Product:
     @classmethod
     def search_name(cls, name, clause):
         return [('variant_name',) + tuple(clause[1:])]
+
+    @fields.depends('template')
+    def on_change_with_variant_unique_name(self, name=None):
+        if self.template:
+            return self.template.unique_variant
+        return False
