@@ -3,7 +3,7 @@
 copyright notices and license terms. -->
 <data>
      <xpath expr="/form/field[@name='active']" position="after">
-          <label name="name"/>
-          <field name="name"/>
+          <label name="variant_name"/>
+          <field name="variant_name"/>
      </xpath>
 </data>
