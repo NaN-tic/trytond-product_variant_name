@@ -3,9 +3,9 @@ msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
 msgctxt "field:product.product,name:"
-msgid "Variant Name"
-msgstr "Nom de variant"
-
-msgctxt "field:product.product,variant_name:"
 msgid "Name"
 msgstr "Nom"
+
+msgctxt "field:product.product,variant_name:"
+msgid "Variant Name"
+msgstr "Nom variant"

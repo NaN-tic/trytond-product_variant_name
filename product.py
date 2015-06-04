@@ -17,9 +17,9 @@ STATES = {
 class Product:
     __name__ = 'product.product'
     name = fields.Function(
-            fields.Char('Variant Name', states=STATES, depends=['active']),
+            fields.Char('Name', states=STATES, depends=['active']),
         'get_name', setter='set_name', searcher='search_name', )
-    variant_name = fields.Char("Name", select=True)
+    variant_name = fields.Char("Variant Name", select=True)
 
     @classmethod
     def search(cls, domain, offset=0, limit=None, order=None, count=False,
