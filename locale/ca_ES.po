@@ -9,3 +9,7 @@ msgstr "Nom"
 msgctxt "field:product.product,variant_name:"
 msgid "Variant Name"
 msgstr "Nom variant"
+
+msgctxt "field:product.product,variant_unique_name:"
+msgid "Variant Unique Name"
+msgstr "Nom variant única"
