@@ -17,9 +17,9 @@ STATES = {
 class Product:
     __name__ = 'product.product'
     name = fields.Function(
-            fields.Char('Name', states=STATES, depends=['active']),
+            fields.Char('Name', states=STATES, depends=['active'], translate=True),
         'get_name', setter='set_name', searcher='search_name', )
-    variant_name = fields.Char("Variant Name", select=True)
+    variant_name = fields.Char("Variant Name", select=True, translate=True)
     variant_unique_name = fields.Function(fields.Boolean('Variant Unique Name'),
         'on_change_with_variant_unique_name')
 
