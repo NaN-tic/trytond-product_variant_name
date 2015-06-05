@@ -9,8 +9,6 @@ __all__ = ['Product']
 __metaclass__ = PoolMeta
 STATES = {
     'readonly': ~Eval('active', True),
-    'invisible': (Eval('variant_unique_name', False) | Eval(
-        '_parent_template', {}).get('unique_variant', False)),
     'required': ~(Eval('variant_unique_name', False) | Eval(
         '_parent_template', {}).get('unique_variant', False)),
     }
