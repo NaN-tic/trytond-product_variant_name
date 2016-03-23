@@ -17,8 +17,12 @@ class Product:
             query=False):
         for d in domain:
             if d and d[0] == 'name':
-                domain = ['OR', domain[:], ('template.name', 'ilike', d[2])]
-                break
+                if d[1] == 'in':
+                    domain = ['OR', domain[:], ('template.name', 'in', d[2])]
+                    break
+                else:
+                    domain = ['OR', domain[:], ('template.name', 'ilike', d[2])]
+                    break
         return super(Product, cls).search(domain, offset=offset, limit=limit,
             order=order, count=count, query=query)
 
