@@ -5,10 +5,10 @@ from trytond.pool import PoolMeta
 
 
 __all__ = ['Product']
-__metaclass__ = PoolMeta
 
 
 class Product:
+    __metaclass__ = PoolMeta
     __name__ = 'product.product'
     variant_name = fields.Char("Variant Name", select=True, translate=True)
 
